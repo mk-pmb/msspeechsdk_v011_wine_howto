@@ -1,0 +1,9 @@
+
+/Microsoft.Speech.dll
+/*.exe
+/*.log
+/*.trc
+
+/wpfx
+/winepfx
+/.wine

@@ -1,0 +1,21 @@
+{ "name": "msspeechsdk_v011_wine_howto",
+  "version": "0.0.1",
+  "description": "How to use MS Speech SDK v11 in Wine",
+  "keywords": [ "wine", "tts", "speechsdk" ],
+
+  "author": "M.K. (https://github.com/mk-pmb)",
+  "homepage": "https://github.com/mk-pmb/msspeechsdk_v011_wine_howto/#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mk-pmb/msspeechsdk_v011_wine_howto.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mk-pmb/msspeechsdk_v011_wine_howto/issues"
+  },
+  "contributors": [],
+
+  "private": false, "license": "ISC",
+
+
+  "npm vs. BOM = Unexpected token": "-*- coding: UTF-8 -*-"
+}
