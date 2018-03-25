@@ -96,8 +96,10 @@ Now run it in wine:
     No voice installed on the system or none available with the current
     security setting.
     ```
-    * My crashlog:
+    * My crashlog for `wine-stable` (wine v3.0):
       https://gist.github.com/mk-pmb/2ad02725db30b31921488e00c541cb40
+    * My crashlog for `wine-devel` (wine v3.4):
+      https://gist.github.com/mk-pmb/3efba8685a972fd21c4033b565ade8d2
 1. ???
 
 
