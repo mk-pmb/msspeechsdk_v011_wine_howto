@@ -51,7 +51,6 @@ Tested with Ubuntu trusty and `winehq-stable` v3.0.
     In wine, it installs completely silently,
     so you'll have to just hope it succeeds.
     (or `strace` it.)
-1. If you don't yet have a C# compiler, `apt-get install mono-mcs`
 
 
 
@@ -62,6 +61,7 @@ Create your first TTS app
 
   [speakargs-exe-zip]: http://l.proggr.de/?182heru3w
 
+1. If you don't yet have a C# compiler, `apt-get install mono-mcs`
 1. Clone this repo, or create a new directory and copy the `speakArgs.cs`
     from this repo. It's based on this example code:
     https://msdn.microsoft.com/en-us/library/hh378340(v=office.14).aspx
