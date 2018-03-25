@@ -1,5 +1,5 @@
 using System;
-using Microsoft.Speech.Synthesis;
+using System.Speech.Synthesis;
 
 namespace speakCliArgs {
   class Program {

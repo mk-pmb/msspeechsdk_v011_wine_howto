@@ -13,7 +13,15 @@ function cs_make_test () {
   local TIMECAT=( cat )
   timecat --help &>/dev/null && TIMECAT=( timecat --timefmt '@%@%,' )
 
-  mcs /reference:Microsoft.Speech.dll "$PROG".cs || return $?
+  local MCS_CMD=(
+    mcs
+    /reference:Microsoft.Speech.dll
+    /reference:System.Speech.dll
+    "$PROG".cs
+    )
+
+  echo "D: compiler cmd: ${MCS_CMD[*]}" >&2
+  "${MCS_CMD[@]}" || return $?
   wine "$PROG".exe "$@" |& "${TIMECAT[@]}" | sed -re '
     /^([0-9a-f]{3,8}:|)fixme:/d
     ' | tee -- "$PROG".log

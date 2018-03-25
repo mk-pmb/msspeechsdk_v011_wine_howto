@@ -1,9 +1,10 @@
 ﻿
-Spoiler: Doesn't work yet
--------------------------
+Reliability: partially works
+----------------------------
 
-For now, this tutorial just documents my attempts at getting it to work,
-so you can help me debug it. (Please do!)
+* [x] use Ubuntu to build a TTS app for Windows
+* [x] make it work on Windows 8
+* [ ] make it work in Wine
 
 
 
@@ -55,12 +56,21 @@ Tested with Ubuntu trusty and `winehq-stable` v3.0.
 Create your first TTS app
 -------------------------
 
+(Or you can just [download a ZIP with my `speakArgs.exe`][speakargs-exe-zip].)
+
+  [speakargs-exe-zip]: http://l.proggr.de/?182heru3w
+
 1. Clone this repo, or create a new directory and copy the `speakArgs.cs`
     from this repo. It's based on this example code:
     https://msdn.microsoft.com/en-us/library/hh378340(v=office.14).aspx
-1. Copy or symlink the `Microsoft.Speech.dll` from the SDK `Assembly`
-    subdirectory.
-1. Compile it: `mcs /reference:Microsoft.Speech.dll speakArgs.cs`
+1. <del>Copy or symlink the `Microsoft.Speech.dll` from the SDK `Assembly`
+    subdirectory.</del>
+    Although that's the one used in the MSDN example, it won't speak.
+    In order to get actual audio, you'll need another one:
+1. Copy or symlink the `System.Speech.dll` from the .NET framework.
+    * In my case it's in this path in wine's C: drive:
+      `windows/Microsoft.NET/Framework/v4.0.30319/WPF/System.Speech.dll`
+1. Compile it: `mcs /reference:System.Speech.dll speakArgs.cs`
     * It should succeed silently and create a file `speakArgs.exe`.
 
 Verify it works on original Windows:
@@ -71,8 +81,22 @@ Verify it works on original Windows:
     Control Panel -> Speech Recognition -> (in sidebar) Text-to-Speech
 1. Copy `speakArgs.exe` over and run it there, in a command prompt.
     * At first run, it needs a long time to initialize.
-    * Observe it outputs the progress information but no audio.
-    * :-(
+    * It speaks!
+
+Now run it in wine:
+
+1. Verify you have at least one TTS voice installed; they should be at
+    `Program Files/Common Files/Microsoft Shared/Speech/Tokens`.
+1. Run `wine speakArgs.exe |& tee wine.log`
+1. It crashes because it can't find any voices:
+    ```text
+    Unhandled Exception: System.PlatformNotSupportedException:
+    No voice installed on the system or none available with the current
+    security setting.
+    ```
+    * My crashlog:
+      https://gist.github.com/mk-pmb/2ad02725db30b31921488e00c541cb40
+1. ???
 
 
 
