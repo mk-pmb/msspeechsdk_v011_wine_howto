@@ -36,6 +36,12 @@ Tested with Ubuntu trusty and `winehq-stable` v3.0.
     You might need to uninstall Mono first.
     An easy way to do both is to install `winetricks` and `cabextract`,
     then run `winetricks dotnet40`.
+
+    * Hint for future me: To detect which version of .NET is required,
+      make a fresh wine prefix, uninstall Mono (`wine uninstaller`),
+      then run the self-made TTS app from next chapter.
+      Its error message will list acceptable .NET versions.
+
 1. The above step might have reset your windows version, so
     make sure it's still Windows 8, adjust if needed.
 1. Install the Runtime:
