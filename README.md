@@ -32,6 +32,12 @@ Tested with Ubuntu trusty and `winehq-stable` v3.0.
 
 1. Set your wine prefix's windows version to Windows 8:
     run `winecfg` to GUI-configure it, or `winetricks win8` for automatic.
+1. Install version 4.0 or the .NET framework. (Might take several minutes.)
+    You might need to uninstall Mono first.
+    An easy way to do both is to install `winetricks` and `cabextract`,
+    then run `winetricks dotnet40`.
+1. The above step might have reset your windows version, so
+    make sure it's still Windows 8, adjust if needed.
 1. Install the Runtime:
     `wine msiexec /i setups/SpeechPlatformRuntime.msi`
     should start the install dialog.
@@ -46,10 +52,6 @@ Tested with Ubuntu trusty and `winehq-stable` v3.0.
     so you'll have to just hope it succeeds.
     (or `strace` it.)
 1. If you don't yet have a C# compiler, `apt-get install mono-mcs`
-1. Install version 4.0 or the .NET framework. (Might take several minutes.)
-    You might need to uninstall Mono first.
-    An easy way to do both is to install `winetricks` and `cabextract`,
-    then run `winetricks dotnet40`.
 
 
 
