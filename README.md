@@ -1,10 +1,10 @@
 ﻿
-Reliability: partially works
-----------------------------
+Reliability: works for me
+-------------------------
 
 * [x] use Ubuntu to build a TTS app for Windows
 * [x] make it work on Windows 8
-* [ ] make it work in Wine
+* [x] make it work in Wine
 
 
 
@@ -63,10 +63,6 @@ Tested with Ubuntu trusty and `winehq-stable` v3.0.
 Create your first TTS app
 -------------------------
 
-(Or you can just [download a ZIP with my `speakArgs.exe`][speakargs-exe-zip].)
-
-  [speakargs-exe-zip]: http://l.proggr.de/?182heru3w
-
 1. If you don't yet have a C# compiler, `apt-get install mono-mcs`
 1. Clone this repo, or create a new directory and copy the `speakArgs.cs`
     from this repo. It's based on this example code:
@@ -81,33 +77,15 @@ Create your first TTS app
 1. Compile it: `mcs /reference:System.Speech.dll speakArgs.cs`
     * It should succeed silently and create a file `speakArgs.exe`.
 
-Verify it works on original Windows:
-
-1. Borrow a computer with Windows 8.
-1. Install the runtime and languages. (SDK should not be required.)
-1. Configure and test a default language:
-    Control Panel -> Speech Recognition -> (in sidebar) Text-to-Speech
-1. Copy `speakArgs.exe` over and run it there, in a command prompt.
-    * At first run, it needs a long time to initialize.
-    * It speaks!
-
-Now run it in wine:
+Run it in wine:
 
 1. Verify you have at least one TTS voice installed; they should be at
     `Program Files/Common Files/Microsoft Shared/Speech/Tokens`.
-1. Run `wine speakArgs.exe |& tee wine.log`
-1. It crashes because it can't find any voices:
-    ```text
-    Unhandled Exception: System.PlatformNotSupportedException:
-    No voice installed on the system or none available with the current
-    security setting.
-    ```
-    * My crashlog for `wine-stable` (wine v3.0):
-      https://gist.github.com/mk-pmb/2ad02725db30b31921488e00c541cb40
-    * My crashlog for `wine-devel` (wine v3.4):
-      https://gist.github.com/mk-pmb/3efba8685a972fd21c4033b565ade8d2
-1. ???
-
+1. Check your audio settings, set volume tentatively low for your
+    default output device.
+1. Run `wine speakArgs.exe`
+1. If you didn't hear anything, at louder volumes.
+    If it still doesn't work, let's investigate.
 
 
 
