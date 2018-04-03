@@ -67,13 +67,18 @@ Create your first TTS app
 1. Clone this repo, or create a new directory and copy the `speakArgs.cs`
     from this repo. It's based on this example code:
     https://msdn.microsoft.com/en-us/library/hh378340(v=office.14).aspx
-1. <del>Copy or symlink the `Microsoft.Speech.dll` from the SDK `Assembly`
-    subdirectory.</del>
-    Although that's the one used in the MSDN example, it won't speak.
-    In order to get actual audio, you'll need another one:
-1. Copy or symlink the `System.Speech.dll` from the .NET framework.
-    * In my case it's in this path in wine's C: drive:
-      `windows/Microsoft.NET/Framework/v4.0.30319/WPF/System.Speech.dll`
+1. Copy or symlink the `Microsoft.Speech.dll` from the SDK `Assembly`
+    subdirectory.
+    * NB: There are at least
+      [two versions of the SAPI][sapi-server-vs-desktop]:
+      * `Microsoft.Speech.*` is the server version.
+        This one I managed to make work in wine.
+      * `System.Speech.*` is the desktop version.
+        Trying to use this one in wine made my program crash.
+        If you'd like to tinker with it anyway,
+        copy or symlink the `System.Speech.dll` from the .NET framework;
+        in my case it's in this path in wine's C: drive:
+        `windows/Microsoft.NET/Framework/v4.0.30319/WPF/System.Speech.dll`
 1. Compile it: `mcs /reference:System.Speech.dll speakArgs.cs`
     * It should succeed silently and create a file `speakArgs.exe`.
 
@@ -94,4 +99,8 @@ Run it in wine:
 
 
 
+
+
+
+  [sapi-server-vs-desktop]: http://web.archive.org/web/20180403220404/https://stackoverflow.com/questions/2977338/what-is-the-difference-between-system-speech-recognition-and-microsoft-speech-re
 
