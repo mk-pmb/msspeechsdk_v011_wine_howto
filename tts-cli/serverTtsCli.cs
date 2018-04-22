@@ -21,6 +21,7 @@ public class Program {
 public static strList readLnInputQ;
 public static bool interactiveMode = false;
 public static bool readLnEcho = false;
+public static string textBuf;
 public static SpeechSynthesizer synth = new SpeechSynthesizer();
 
 
@@ -80,18 +81,39 @@ static string readLnCore() {
 }
 
 
-public static bool cmd() {
-  string ln = readLn();
-  if (ln == null) { return die("quit"); }
-  strList words = strList.splitWords(ln);
+public static bool cmd(strList words = null) {
+  if (words == null) {
+    string ln = readLn();
+    if (ln == null) { return die("quit"); }
+    words = strList.splitWords(ln);
+  }
   if (words.Count < 1) { return true; }
   string cmd = words.shift();
   if (cmd == "#") { return true; }
+  if (cmd == "must") { return cmdMust(words); }
   if (cmd == "quit") { return die("quit"); }
   if (cmd == "echo") { return cmdEcho(words); }
   if (cmd == "interactive") { return cmdInteractive(); }
   if (cmd == "voice") { return cmdVoice.run(words); }
+  if (cmd == "vol") { return cmdMasterVolume(words.getOr(0)); }
+  if (cmd == "audio_output") { return cmdOutput(words); }
+  if (cmd == "set_text") { return setTextBuf(String.Join(" ", words)); }
+  if (cmd == "speak_sync") {
+    synth.Speak(textBuf);
+    Console.WriteLine("ok spoken");
+    return true;
+  }
   return errUnsuppCmd();
+}
+
+
+public static bool cmdMust(strList words) {
+  try {
+    return cmd(words);
+  } catch (CodedError err) {
+    if (err.fatalRetVal < 1) { err.fatalRetVal = 7; }
+    throw err;
+  }
 }
 
 
@@ -137,17 +159,49 @@ public static List<InstalledVoice> allVoices() {
 }
 
 
-public static List<InstalledVoice> findVoicesByIds(strList voiceIds) {
+public static List<InstalledVoice> findVoicesByIds(
+  strList voiceIds,
+  int nMax = -1
+) {
   List<InstalledVoice> all = allVoices();
   var collect = new List<InstalledVoice>();
   foreach (string wantId in voiceIds) {
     int found = all.FindIndex(v => v.VoiceInfo.Id == wantId);
-    if (found >= 0) { collect.Add(all[found]); }
+    if (found < 0) { continue; }
+    collect.Add(all[found]);
+    if ((0 <= nMax) && (nMax <= collect.Count)) { break; }
   }
   return collect;
 }
 
 
+public static bool cmdOutput(strList words) {
+  string destType = words.shift();
+  if (destType == "default") {
+    synth.SetOutputToDefaultAudioDevice();
+    Console.WriteLine("ok audio_destination {0}", destType);
+    return true;
+  }
+  return errUnsuppCmd();
+}
+
+
+public static bool cmdMasterVolume(string want) {
+  if ((want != null) && (want != "")) {
+    synth.Volume = Int32.Parse(want);
+  }
+  Console.WriteLine("ok master_volume {0}%", synth.Volume);
+  return true;
+}
+
+
+public static bool setTextBuf(string text) {
+  if (text == "") { text = readLn(); }
+  if ((text == null) || (text == "")) { fail("no_data"); }
+  Console.WriteLine("ok read {0}", text.Length);
+  textBuf = text;
+  return true;
+}
 
 
 

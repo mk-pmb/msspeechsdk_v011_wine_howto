@@ -44,6 +44,7 @@ public class strList : List<string> {
     if (input == null) { return new strList(); }
     if (sep == null) { sep = inLineSpace; }
     input = input.Trim(sep);
+    if (input == "") { return new strList(); }
     return new strList(
       (maxWords < 1)
         ? input.Split(separator: sep)

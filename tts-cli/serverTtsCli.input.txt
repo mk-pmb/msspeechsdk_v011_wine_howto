@@ -1,9 +1,39 @@
 # -*- coding: utf-8, tab-width: 2 -*-
 echo on
 echo
+
 voice list
 voice curid
+
 voice info
 voice info TTS_MS_de-DE_Hedda_11.0
 voice info bogusDoesNotExist
 voice info *
+
+vol
+voice vol
+voice rate
+
+must voice select id TTS_MS_en-US_Helen_11.0
+set_text
+Four furious friends fought for the phone.
+speak_sync
+
+must voice select id TTS_MS_de-DE_Hedda_11.0
+set_text
+Fischers Fritze fischt frische Fische.
+speak_sync
+
+must voice select id TTS_MS_en-US_ZiraPro_11.0
+set_text
+Singing Sammy sung sad songs on sinking sand.
+speak_sync
+
+voice rate -5
+speak_sync
+
+voice rate 5
+speak_sync
+
+voice rate 10
+speak_sync
