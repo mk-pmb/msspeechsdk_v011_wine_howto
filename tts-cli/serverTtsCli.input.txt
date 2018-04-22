@@ -15,18 +15,20 @@ voice vol
 voice rate
 
 must voice select id TTS_MS_en-US_Helen_11.0
-set_text
+must set_text next
 Four furious friends fought for the phone.
 speak_sync
 
 must voice select id TTS_MS_de-DE_Hedda_11.0
-set_text
-Fischers Fritze fischt frische Fische.
+must set_text arg Fischers Fritze fischt frische Fische.
 speak_sync
 
 must voice select id TTS_MS_en-US_ZiraPro_11.0
-set_text
-Singing Sammy sung sad songs on sinking sand.
+must set_text until ===END==
+Singing Sammy
+sung sad songs
+on sinking sand.
+===END==
 speak_sync
 
 voice rate -5

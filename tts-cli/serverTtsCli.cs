@@ -3,9 +3,10 @@ using System.Linq;
 using System.Collections.Generic;
 using Microsoft.Speech.Synthesis;
 
+//#require cmd_set_text_buf.cs
+//#require cmd_voice.cs
 //#require lib_input_util.cs
 //#require lib_str_util.cs
-//#require cmd_voice.cs
 
 public class CodedError : Exception {
   public string errorCode = null;
@@ -97,7 +98,7 @@ public static bool cmd(strList words = null) {
   if (cmd == "voice") { return cmdVoice.run(words); }
   if (cmd == "vol") { return cmdMasterVolume(words.getOr(0)); }
   if (cmd == "audio_output") { return cmdOutput(words); }
-  if (cmd == "set_text") { return setTextBuf(String.Join(" ", words)); }
+  if (cmd == "set_text") { return cmdSetTextBuf.run(words); }
   if (cmd == "speak_sync") {
     synth.Speak(textBuf);
     Console.WriteLine("ok spoken");
@@ -191,15 +192,6 @@ public static bool cmdMasterVolume(string want) {
     synth.Volume = Int32.Parse(want);
   }
   Console.WriteLine("ok master_volume {0}%", synth.Volume);
-  return true;
-}
-
-
-public static bool setTextBuf(string text) {
-  if (text == "") { text = readLn(); }
-  if ((text == null) || (text == "")) { fail("no_data"); }
-  Console.WriteLine("ok read {0}", text.Length);
-  textBuf = text;
   return true;
 }
 
