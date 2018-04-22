@@ -1,2 +1,9 @@
 # -*- coding: utf-8, tab-width: 2 -*-
+echo on
+echo
+voice list
+voice curid
 voice info
+voice info TTS_MS_de-DE_Hedda_11.0
+voice info bogusDoesNotExist
+voice info *

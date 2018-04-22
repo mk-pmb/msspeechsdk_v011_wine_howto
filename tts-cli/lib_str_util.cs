@@ -2,26 +2,48 @@ using System;
 using System.Collections.Generic;
 
 public class strList : List<string> {
+  public strList() : base() {}
+  public strList(int capacity) : base(capacity) {}
   public strList(IEnumerable<string> items) : base(items) {}
 
+
+  public static char[] inLineSpace = new char[] {' ', '\t'};
   public string shift() { return this.pop(0); }
 
-  public string pop(int i = -1) {
+
+  public int wrapIdx(int i) {
     int n = this.Count;
-    if (n < 1) { return null; }
+    if (n < 1) { return -1; }
     if (i < 0) { i += n; }
-    if (i < 0) { return null; }
-    if (i >= n) { return null; }
+    if (i < 0) { return -1; }
+    if (i >= n) { return -1; }
+    return i;
+  }
+
+
+  public string pop(int i = -1, string none = null) {
+    i = wrapIdx(i);
+    if (i < 0) { return none; }
     string s = this[i];
     this.RemoveAt(i);
     return s;
   }
 
+
+  public string getOr(int i, string none = null) {
+    i = wrapIdx(i);
+    if (i < 0) { return none; }
+    return this[i];
+  }
+
+
   public static strList splitWords(string input,
     char[] sep = null,
     int maxWords = -1
   ) {
-    if (sep == null) { sep = new char[] {' '}; }
+    if (input == null) { return new strList(); }
+    if (sep == null) { sep = inLineSpace; }
+    input = input.Trim(sep);
     return new strList(
       (maxWords < 1)
         ? input.Split(separator: sep)

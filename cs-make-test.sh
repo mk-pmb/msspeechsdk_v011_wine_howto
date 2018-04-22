@@ -47,7 +47,7 @@ function cs_make_test () {
     "${RQR_FILES[@]}"
     )
 
-  echo "D: compiler cmd: ${MCS_CMD[*]}" >&2
+  echo "D: compiler cmd: ${MCS_CMD[*]}"$'\n' >&2
   "${MCS_CMD[@]}" || return $?
   local UNBUF='stdbuf -i0 -o0 -e0'
   [ -f "$PROG".input.txt ] && exec <"$PROG".input.txt
