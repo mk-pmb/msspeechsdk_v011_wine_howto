@@ -9,7 +9,7 @@ namespace speakCliArgs {
         args = new string[] { "Hello World!" };
       }
       Console.WriteLine("init synth:");
-      SpeechSynthesizer synth = new SpeechSynthesizer();
+      var synth = new SpeechSynthesizer();
 
       // What Microsoft's intro example didn't tell me:
       // The audio destination defaults to the null device,
