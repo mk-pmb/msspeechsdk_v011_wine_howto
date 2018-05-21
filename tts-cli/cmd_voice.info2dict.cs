@@ -22,7 +22,7 @@ public class VoiceInfoDict : strDict {
     foreach (KeyValuePair<string, string> pair in voice.AdditionalInfo) {
       var key = pair.Key;
       var val = pair.Value;
-      if ((key == "") && (val == "")) { continue; }
+      if (strUtil.empty(key)) { continue; }
       var lcKey = key.ToLower();
       if (lcKey == "age") {
         if (val == agegroup) { continue; }

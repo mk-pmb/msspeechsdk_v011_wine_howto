@@ -1,5 +1,5 @@
 { "name": "msspeechsdk_v011_wine_howto",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "How to use MS Speech SDK v11 in Wine",
   "keywords": [ "wine", "tts", "speechsdk" ],
 

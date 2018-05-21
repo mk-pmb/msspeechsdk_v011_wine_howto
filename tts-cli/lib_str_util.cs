@@ -1,6 +1,41 @@
 using System;
 using System.Collections.Generic;
 
+public class strUtil {
+
+  public static bool empty(string s) {
+    return ((s == null) || (s == ""));
+  }
+
+  public static string simplifySpaceChars(string orig) {
+    return (orig
+      ).Replace('\r', ' '
+      ).Replace('\n', ' '
+      ).Replace('\t', ' '
+      ).Replace('\f', ' '
+      ).Replace('\v', ' '
+      ).Replace('\xA0', ' '
+      ).Trim(' ');
+  }
+
+  public static string jsonEncodeString(string orig) {
+    string json = "\"";
+    int cnum;
+    foreach (char ch in orig) {
+      cnum = (int)ch;
+      if ((0x20 <= cnum) && (cnum <= 0x7E)) {
+        json += ch;
+      } else {
+        json += "\\u" + cnum.ToString("X4");
+      }
+    }
+    json += "\"";
+    return json;
+  }
+
+}
+
+
 public class strList : List<string> {
   public strList() : base() {}
   public strList(int capacity) : base(capacity) {}

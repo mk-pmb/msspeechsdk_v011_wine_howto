@@ -21,12 +21,17 @@ public class Program {
 
 public static strList readLnInputQ;
 public static bool interactiveMode = false;
-public static bool readLnEcho = false;
+public static Dictionary<string, bool> flags;
 public static string textBuf;
 public static SpeechSynthesizer synth = new SpeechSynthesizer();
 
 
 public static void Main(string[] cliArgs) {
+  flags = new Dictionary<string, bool>() {
+    { "echo", false },
+    { "lockdown", false },
+  };
+
   readLnInputQ = new strList(cliArgs);
   if (readLnInputQ.Count == 0) { cmdInteractive(); }
   synth.SetOutputToDefaultAudioDevice();
@@ -70,7 +75,7 @@ public static string readLn() {
   string ln = readLnCore();
   if (ln == null) { return ln; }
   ln = ln.Trim('\r');
-  if (readLnEcho) { Console.WriteLine("echo {0} {1}", ln.Length, ln); }
+  if (flags["echo"]) { Console.WriteLine("echo {0} {1}", ln.Length, ln); }
   return ln;
 }
 
@@ -93,7 +98,7 @@ public static bool cmd(strList words = null) {
   if (cmd == "#") { return true; }
   if (cmd == "must") { return cmdMust(words); }
   if (cmd == "quit") { return die("quit"); }
-  if (cmd == "echo") { return cmdEcho(words); }
+  if (cmd == "flag") { return cmdFlag(words); }
   if (cmd == "interactive") { return cmdInteractive(); }
   if (cmd == "voice") { return cmdVoice.run(words); }
   if (cmd == "vol") { return cmdMasterVolume(words.getOr(0)); }
@@ -118,24 +123,33 @@ public static bool cmdMust(strList words) {
 }
 
 
-public static bool cmdEcho() {
-  Console.WriteLine("ok config_echo " + (readLnEcho ? "on" : "off"));
+public static bool failIfLockedDown() {
+  if (flags["lockdown"]) { fail("locked_down"); }
   return true;
 }
 
 
-public static bool cmdEcho(strList words) {
-  if (words.Count < 1) { return cmdEcho(); }
-  string cmd = words[0];
-  if (cmd == "on") {
-    readLnEcho = true;
-    return cmdEcho();
-  }
-  if (cmd == "off") {
-    readLnEcho = false;
-    return cmdEcho();
-  }
+public static bool cmdFlag_str2bool(string s) {
+  if (s == "on")  { return true; }
+  if (s == "yes") { return true; }
+  if (s == "off") { return false; }
+  if (s == "no")  { return false; }
   return errUnsuppCmd();
+}
+
+
+public static bool cmdFlag(strList words) {
+  string key = words[0];
+  if (!flags.ContainsKey(key)) { return errUnsuppCmd(); }
+  bool val = flags[key];
+  if (words.Count >= 2) {
+    bool upd = cmdFlag_str2bool(words[1]);
+    if ((key == "lockdown") && (!upd)) { failIfLockedDown(); }
+    flags[key] = upd;
+    val = upd;
+  }
+  Console.WriteLine("ok config_flag {0} {1}", key, (val ? "on" : "off"));
+  return true;
 }
 
 
@@ -179,6 +193,7 @@ public static List<InstalledVoice> findVoicesByIds(
 public static bool cmdOutput(strList words) {
   string destType = words.shift();
   if (destType == "default") {
+    failIfLockedDown();
     synth.SetOutputToDefaultAudioDevice();
     Console.WriteLine("ok audio_destination {0}", destType);
     return true;
