@@ -2,8 +2,11 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.Speech.Synthesis;
+using System.Threading; // for Thread
+using System.Globalization; // for CultureInfo
 
 //#require cmd_set_text_buf.cs
+//#require cmd_speak.cs
 //#require cmd_voice.cs
 //#require lib_input_util.cs
 //#require lib_str_util.cs
@@ -30,6 +33,7 @@ public static void Main(string[] cliArgs) {
   flags = new Dictionary<string, bool>() {
     { "echo", false },
     { "lockdown", false },
+    { "paused", false },
   };
 
   readLnInputQ = new strList(cliArgs);
@@ -104,11 +108,9 @@ public static bool cmd(strList words = null) {
   if (cmd == "vol") { return cmdMasterVolume(words.getOr(0)); }
   if (cmd == "audio_output") { return cmdOutput(words); }
   if (cmd == "set_text") { return cmdSetTextBuf.run(words); }
-  if (cmd == "speak_sync") {
-    synth.Speak(textBuf);
-    Console.WriteLine("ok spoken");
-    return true;
-  }
+  if (cmd == "speak") { return cmdSpeak.run(words); }
+  if (cmd == "speak_sync") { return cmdSpeak.sync(); } // legacy v1.0.1 compat
+  if (cmd == "sleep") { return cmdSleep(words); }
   return errUnsuppCmd();
 }
 
@@ -147,6 +149,9 @@ public static bool cmdFlag(strList words) {
     if ((key == "lockdown") && (!upd)) { failIfLockedDown(); }
     flags[key] = upd;
     val = upd;
+    if (key == "paused") {
+      if (upd) { synth.Pause(); } else { synth.Resume(); }
+    }
   }
   Console.WriteLine("ok config_flag {0} {1}", key, (val ? "on" : "off"));
   return true;
@@ -207,6 +212,18 @@ public static bool cmdMasterVolume(string want) {
     synth.Volume = Int32.Parse(want);
   }
   Console.WriteLine("ok master_volume {0}%", synth.Volume);
+  return true;
+}
+
+
+public static bool cmdSleep(strList words) {
+  float val = float.Parse(words.shift(), CultureInfo.InvariantCulture);
+  string unit = words.shift();
+  if (unit != "sec") { fail("unsupported_time_unit"); }
+
+  int msec = (int)Math.Ceiling(val * 1.0e3);
+  Thread.Sleep(msec);
+  Console.WriteLine("ok slept");
   return true;
 }
 

@@ -19,17 +19,17 @@ must set_text arg Y2FzZSBzaXplOiBHZWjDpHVzZWdyw7bDn2UK
 must set_text decode base64 utf8
 must voice select id TTS_MS_de-DE_Hedda_11.0
 must voice rate 4
-speak_sync
+speak sync
 
 # test speeds
 must voice select id TTS_MS_en-US_Helen_11.0
 must set_text next
 Four furious friends fought for the phone.
-speak_sync
+speak sync
 
 must voice select id TTS_MS_de-DE_Hedda_11.0
 must set_text arg Fischers Fritze fischt frische Fische.
-speak_sync
+speak sync
 
 must voice select id TTS_MS_en-US_ZiraPro_11.0
 must set_text until ===END==
@@ -37,13 +37,22 @@ Singing Sammy
 sung sad songs
 on sinking sand.
 ===END==
-speak_sync
+speak sync
 
 voice rate -5
-speak_sync
+flag paused on
+speak start
+sleep 2 sec
+flag paused off
+sleep 2 sec
+flag paused on
+sleep 2 sec
+flag paused off
+sleep 2 sec
+speak stop
 
 voice rate 5
-speak_sync
+speak sync
 
 voice rate 10
-speak_sync
+speak sync
