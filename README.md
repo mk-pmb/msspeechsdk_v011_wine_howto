@@ -16,7 +16,7 @@ Tested with Ubuntu trusty and `winehq-stable` v3.0.
   * When I read them, the PPA was incomplete, so I had to use the official
     (non-PPA) apt repo described in the instructions.
 
-1. Collect the files you'll need to install.
+1.  Collect the files you'll need to install.
     * In case the downloads won't easily start: The Download Center has a
       noscript tag with direct download links between the "Thank you for
       downloading" headline and the "Install Instructions" button.
@@ -28,11 +28,11 @@ Tested with Ubuntu trusty and `winehq-stable` v3.0.
       http://web.archive.org/web/20180304122215/https://www.microsoft.com/en-us/download/confirmation.aspx?id=27224
       * SR = speech recognition, TTS = text-to-speech
 
-1. Recommended: To avoid side effects, create a new wine prefix and work there.
+1.  Recommended: To avoid side effects, create a new wine prefix and work there.
 
-1. Set your wine prefix's windows version to Windows 8:
+1.  Set your wine prefix's windows version to Windows 8:
     run `winecfg` to GUI-configure it, or `winetricks win8` for automatic.
-1. Install version 4.0 or the .NET framework. (Might take several minutes.)
+1.  Install version 4.0 or the .NET framework. (Might take several minutes.)
     You might need to uninstall Mono first.
     An easy way to do both is to install `winetricks` and `cabextract`,
     then run `winetricks dotnet40`.
@@ -42,16 +42,16 @@ Tested with Ubuntu trusty and `winehq-stable` v3.0.
       then run the self-made TTS app from next chapter.
       Its error message will list acceptable .NET versions.
 
-1. The above step might have reset your windows version, so
+1.  The above step might have reset your windows version, so
     make sure it's still Windows 8, adjust if needed.
-1. Install the Runtime:
+1.  Install the Runtime:
     `wine msiexec /i setups/SpeechPlatformRuntime.msi`
     should start the install dialog.
-1. Install the SDK: msiexec, dialog-powered.
+1.  Install the SDK: msiexec, dialog-powered.
     * Remember into which directory you install the SDK.
       In this tutorial I'll assume `C:\MS_SpeechSDK_v011`.
       You'll need DLL files from the SDK's `Assembly` subdirectory.
-1. Install languages: msiexec, non-interactive.
+1.  Install languages: msiexec, non-interactive.
     On Windows, this means the only dialog you'll see (if your machine is slow
     enough ;-) ) is a progress dialog, which auto-closes on success.
     In wine, it installs completely silently,
@@ -63,11 +63,11 @@ Tested with Ubuntu trusty and `winehq-stable` v3.0.
 Create your first TTS app
 -------------------------
 
-1. If you don't yet have a C# compiler, `apt-get install mono-mcs`
-1. Clone this repo, or create a new directory and copy the `speakArgs.cs`
+1.  If you don't yet have a C# compiler, `apt-get install mono-mcs`
+1.  Clone this repo, or create a new directory and copy the `speakArgs.cs`
     from this repo. It's based on this example code:
     https://msdn.microsoft.com/en-us/library/hh378340(v=office.14).aspx
-1. Copy or symlink the `Microsoft.Speech.dll` from the SDK `Assembly`
+1.  Copy or symlink the `Microsoft.Speech.dll` from the SDK `Assembly`
     subdirectory.
     * NB: There are at least
       [two versions of the SAPI][sapi-server-vs-desktop]:
@@ -79,17 +79,17 @@ Create your first TTS app
         copy or symlink the `System.Speech.dll` from the .NET framework;
         in my case it's in this path in wine's C: drive:
         `windows/Microsoft.NET/Framework/v4.0.30319/WPF/System.Speech.dll`
-1. Compile it: `mcs /reference:System.Speech.dll speakArgs.cs`
+1.  Compile it: `mcs /reference:System.Speech.dll speakArgs.cs`
     * It should succeed silently and create a file `speakArgs.exe`.
 
 Run it in wine:
 
-1. Verify you have at least one TTS voice installed; they should be at
+1.  Verify you have at least one TTS voice installed; they should be at
     `Program Files/Common Files/Microsoft Shared/Speech/Tokens`.
-1. Check your audio settings, set volume tentatively low for your
+1.  Check your audio settings, set volume tentatively low for your
     default output device.
-1. Run `wine speakArgs.exe`
-1. If you didn't hear anything, at louder volumes.
+1.  Run `wine speakArgs.exe`
+1.  If you didn't hear anything, at louder volumes.
     If it still doesn't work, let's investigate.
 
 
