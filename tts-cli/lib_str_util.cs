@@ -20,16 +20,14 @@ public class strUtil {
 
   public static string jsonEncodeString(string orig) {
     string json = "\"";
-    int cnum;
     foreach (char ch in orig) {
-      cnum = (int)ch;
-      if ((0x20 <= cnum) && (cnum <= 0x7E)) {
-        json += ch;
+      if ((ch < ' ') || (ch == '"') || (ch == '\\') || (ch > '~')) {
+        json += "\\u" + ((int)ch).ToString("X4");
       } else {
-        json += "\\u" + cnum.ToString("X4");
+        json += ch;
       }
     }
-    json += "\"";
+    json += '"';
     return json;
   }
 
