@@ -47,7 +47,6 @@ Tested with Ubuntu trusty and `winehq-stable` v3.0.
     You might need to uninstall Mono first.
     An easy way to do both is to install `winetricks` and `cabextract`,
     then run `winetricks dotnet40`.
-
     * Hint for future me: To detect which version of .NET is required,
       make a fresh wine prefix, uninstall Mono (`wine uninstaller`),
       then run the self-made TTS app from next chapter.
@@ -60,17 +59,18 @@ Tested with Ubuntu trusty and `winehq-stable` v3.0.
     `wine msiexec /i setups/SpeechPlatformRuntime.msi`
     should start the install dialog.
 
-1.  Install the SDK: msiexec, dialog-powered.
+1.  Install the SDK: msiexec (as above), dialog-powered.
     * Remember into which directory you install the SDK.
       In this tutorial I'll assume `C:\MS_SpeechSDK_v011`.
       You'll need DLL files from the SDK's `Assembly` subdirectory.
 
-1.  Install languages: msiexec, non-interactive.
-    On Windows, this means the only dialog you'll see (if your machine is slow
-    enough ;-) ) is a progress dialog, which auto-closes on success.
-    In wine, it installs completely silently,
-    so you'll have to just hope it succeeds.
-    (or `strace` it.)
+1.  Install languages: msiexec (as above), non-interactive.
+    * On Windows, this means the only dialog you'll see
+      (if your machine is slow enough ;-) )
+      is a progress dialog, which auto-closes on success.
+    * In wine, it installs completely silently,
+      so you'll have to just hope it succeeds.
+      (Or you may `strace` it.)
 
 
 
