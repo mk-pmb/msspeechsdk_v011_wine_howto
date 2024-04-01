@@ -17,7 +17,18 @@ Tested with Ubuntu trusty and `winehq-stable` v3.0.
   * When I read them, the PPA was incomplete, so I had to use the official
     (non-PPA) apt repo described in the instructions.
 
+1.  Recommended: To avoid side effects, create a new wine prefix and work there.
+
+1.  Decide the CPU architecture to use inside your wineprefix and/or
+    on actual windows target machines.
+    * Configure your wine prefix appropriately.
+      This probably means setting the WINEARCH environment variable.
+    * I always just use `WINEARCH=win32` anyway because I build inside a
+      wine prefix in which I run some ancient proprietary abandonware anyway.
+
 1.  Collect the files you'll need to install.
+    * When there are multiple versions of a download, make sure to pick
+      the one appropriate for your targeted CPU architecture.
     * In case the downloads won't easily start: The Download Center has a
       noscript tag with direct download links between the "Thank you for
       downloading" headline and the "Install Instructions" button.
@@ -28,8 +39,6 @@ Tested with Ubuntu trusty and `winehq-stable` v3.0.
     * Languages (you'll need at least one):
       http://web.archive.org/web/20180304122215/https://www.microsoft.com/en-us/download/confirmation.aspx?id=27224
       * SR = speech recognition, TTS = text-to-speech
-
-1.  Recommended: To avoid side effects, create a new wine prefix and work there.
 
 1.  Set your wine prefix's windows version to Windows 8:
     run `winecfg` to GUI-configure it, or `winetricks win8` for automatic.
