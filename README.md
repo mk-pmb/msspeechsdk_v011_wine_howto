@@ -12,6 +12,7 @@ Installing MS Speech SDK v11
 ----------------------------
 
 Tested with Ubuntu trusty and `winehq-stable` v3.0.
+
 * WineHQ install instructions: https://wiki.winehq.org/Ubuntu
   * When I read them, the PPA was incomplete, so I had to use the official
     (non-PPA) apt repo described in the instructions.
@@ -32,6 +33,7 @@ Tested with Ubuntu trusty and `winehq-stable` v3.0.
 
 1.  Set your wine prefix's windows version to Windows 8:
     run `winecfg` to GUI-configure it, or `winetricks win8` for automatic.
+
 1.  Install version 4.0 or the .NET framework. (Might take several minutes.)
     You might need to uninstall Mono first.
     An easy way to do both is to install `winetricks` and `cabextract`,
@@ -44,13 +46,16 @@ Tested with Ubuntu trusty and `winehq-stable` v3.0.
 
 1.  The above step might have reset your windows version, so
     make sure it's still Windows 8, adjust if needed.
+
 1.  Install the Runtime:
     `wine msiexec /i setups/SpeechPlatformRuntime.msi`
     should start the install dialog.
+
 1.  Install the SDK: msiexec, dialog-powered.
     * Remember into which directory you install the SDK.
       In this tutorial I'll assume `C:\MS_SpeechSDK_v011`.
       You'll need DLL files from the SDK's `Assembly` subdirectory.
+
 1.  Install languages: msiexec, non-interactive.
     On Windows, this means the only dialog you'll see (if your machine is slow
     enough ;-) ) is a progress dialog, which auto-closes on success.
