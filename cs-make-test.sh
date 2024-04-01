@@ -42,6 +42,12 @@ function cs_make_test () {
 
   local MCS_CMD=(
     mcs
+
+    -sdk:4.5
+    # ^-- Required for string operation .TrimEnd(Char).
+    #   This is independent from the .NET framework version installed
+    #   inside the wineprefix.
+
     -out:"$PROG".exe
     "${DLL_REFS[@]}"
     "${RQR_FILES[@]}"

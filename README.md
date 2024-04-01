@@ -11,7 +11,7 @@ Reliability: works for me
 Installing MS Speech SDK v11
 ----------------------------
 
-Tested with Ubuntu trusty and `winehq-stable` v3.0.
+Tested with Ubuntu focal and `winehq-stable` version `7.0.0.0~focal-1`.
 
 * WineHQ install instructions: https://wiki.winehq.org/Ubuntu
   * When I read them, the PPA was incomplete, so I had to use the official
@@ -43,8 +43,10 @@ Tested with Ubuntu trusty and `winehq-stable` v3.0.
 1.  Set your wine prefix's windows version to Windows 8:
     run `winecfg` to GUI-configure it, or `winetricks win8` for automatic.
 
-1.  Install version 4.0 or the .NET framework. (Might take several minutes.)
-    You might need to uninstall Mono first.
+1.  Independen of what mono runtime version your Ubuntu has, your wineprefix
+    needs exactly version 4.0 of the .NET framework.
+    Install that. (Might take several minutes.)
+    You might need to uninstall Mono first (run `wine uninstaller`).
     An easy way to do both is to install `winetricks` and `cabextract`,
     then run `winetricks dotnet40`.
     * Hint for future me: To detect which version of .NET is required,
@@ -77,7 +79,8 @@ Tested with Ubuntu trusty and `winehq-stable` v3.0.
 Create your first TTS app
 -------------------------
 
-1.  If you don't yet have a C# compiler, `apt-get install mono-mcs`
+1.  If you don't yet have a C# compiler,
+    `apt-get install mono-devel mono-mcs mono-runtime`
 1.  Clone this repo, or create a new directory and copy the `speakArgs.cs`
     from this repo. It's based on this example code:
     https://msdn.microsoft.com/en-us/library/hh378340(v=office.14).aspx

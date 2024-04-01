@@ -1,9 +1,17 @@
 
+# Site-specific files:
 /Microsoft.Speech.dll
+
+/.wine
+/winepfx
+/wpfx
+
+
+# Auto-generated files
 /*.exe
 /*.log
 /*.trc
 
-/wpfx
-/winepfx
-/.wine
+
+
+# Unsorted stuff (this section should be empty):

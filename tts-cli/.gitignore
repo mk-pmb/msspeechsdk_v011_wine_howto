@@ -1,3 +1,15 @@
 
+# Site-specific files:
+/Microsoft.Speech.dll
+
+# Wine prefix? Use ../winepfx/
+
+
+# Auto-generated files
 /*.log
 /*.exe
+/tmp.*
+
+
+
+# Unsorted stuff (this section should be empty):
