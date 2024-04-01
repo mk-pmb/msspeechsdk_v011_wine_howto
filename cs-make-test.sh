@@ -6,13 +6,13 @@ function cs_make_test () {
   export LANG{,UAGE}=en_US.UTF-8  # make error messages search engine-friendly
   local INVO_DIR="$(dirname "$0")/"
   [ "$INVO_DIR" == ./ ] && INVO_DIR=
-  local SELFPATH="$(readlink -m "$BASH_SOURCE"/..)"
-  # cd "$SELFPATH" || return $?
+  local SELFPATH="$(readlink -m -- "$BASH_SOURCE"/..)"
+  # cd -- "$SELFPATH" || return $?
 
   local PROG="$1"; shift
   case "$PROG" in
     --deps ) find_required_files "$@"; return $?;;
-    -* ) echo "E: unsupported option: $PROG" >&2; return 2;;
+    -* ) echo E: "unsupported option: $PROG" >&2; return 2;;
   esac
   PROG="${PROG%.cs}"
   PROG="${PROG%.}"
