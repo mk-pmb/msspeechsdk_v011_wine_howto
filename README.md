@@ -89,7 +89,7 @@ Run it in wine:
 1.  Check your audio settings, set volume tentatively low for your
     default output device.
 1.  Run `wine speakArgs.exe`
-1.  If you didn't hear anything, at louder volumes.
+1.  If you didn't hear anything, retry at louder volumes.
     If it still doesn't work, let's investigate.
 
 
