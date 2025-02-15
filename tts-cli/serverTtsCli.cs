@@ -55,10 +55,9 @@ public static void Main(string[] cliArgs) {
   }
 
   synth.Dispose();
-  // Probably implicit, but serves as a reminder for me about how
-  // to exit non-zero.      – mk
   Console.WriteLine("hint quit rv={0}", retVal);
-  Environment.Exit(retVal);
+  Environment.Exit(retVal); /* Probably implicit, but serves as a reminder
+    for me about how to exit non-zero. – mk */
 }
 
 
