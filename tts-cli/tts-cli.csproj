@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- [
+  To compile on Ubuntu: `xbuild tts-cli.csproj` (deprecated)
+  or `msbuild tts-cli.csproj` (if you manage to install it)
+] -->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <ProductVersion>0.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0806f7b4-a88a-4a34-a9ea-921fb57b39cc}</ProjectGuid>
+    <OutputType>exe</OutputType>
+    <RootNamespace>msspeechsdk_v011_wine_howto</RootNamespace>
+    <AssemblyName>serverTtsCli</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="cmd_*.cs" />
+    <Compile Include="lib_*.cs" />
+    <Compile Include="serverTtsCli.cs" />
+    <Reference Include="Microsoft.Speech.dll" />
+  </ItemGroup>
+
+  <Target Name="Build">
+    <Csc
+      OutputAssembly="$(OutDir)$(AssemblyName).exe"
+      References="@(Reference)"
+      Sources="@(Compile)"
+      TargetType="exe"
+    />
+  </Target>
+
+</Project>
