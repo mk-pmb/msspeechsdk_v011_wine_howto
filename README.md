@@ -43,7 +43,7 @@ Tested with Ubuntu focal and `winehq-stable` version `7.0.0.0~focal-1`.
 1.  Set your wine prefix's windows version to Windows 8:
     run `winecfg` to GUI-configure it, or `winetricks win8` for automatic.
 
-1.  Independen of what mono runtime version your Ubuntu has, your wineprefix
+1.  Independent of what mono runtime version your Ubuntu has, your wineprefix
     needs exactly version 4.0 of the .NET framework.
     Install that. (Might take several minutes.)
     You might need to uninstall Mono first (run `wine uninstaller`).
