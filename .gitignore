@@ -9,8 +9,11 @@
 
 # Auto-generated files
 /*.exe
+/*.exe.gz
 /*.log
 /*.trc
+/tmp.*
+/wt.*
 
 
 
